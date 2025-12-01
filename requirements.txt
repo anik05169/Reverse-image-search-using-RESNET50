@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+python-multipart
+psycopg2-binary
+pgvector
+torch
+torchvision
+Pillow
+numpy
+tqdm
