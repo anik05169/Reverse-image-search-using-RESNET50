@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  # Service 1: The Vector Database
+  db:
+    image: pgvector/pgvector:pg16  # Official image with vector extension pre-installed
+    container_name: vector_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secretpassword
+      POSTGRES_DB: visual_search
+    ports:
+      - "5433:5432"  # Expose PostgreSQL to localhost
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  # Service 2: Your Python Application
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: visual_search_app
+    volumes:
+      - ./src:/app/src     # Hot reload code
+      - ./data:/app/data   # Dataset mounted
+    depends_on:
+      - db
+    environment:
+      POSTGRES_DB: visual_search
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secretpassword
+      DB_HOST: db       # <— IMPORTANT: inside Docker, DB hostname is "db"
+      DB_PORT: 5432     # <— INTERNAL port, not 5433
+
+volumes:
+  postgres_data:
