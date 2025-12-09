@@ -17,29 +17,28 @@ Dataset: Caltech-101
 
 Directory structur:
 
+```text
 project-root/
 ├── backend/
-│   ├── api.py
-│
+│   └── api.py                # FastAPI endpoints
 ├── data/
-│   ├── raw/256_categories
-│   └── uploads/
-│
+│   ├── raw/                  # Dataset storage
+│   │   └── caltech101/       # Place dataset here
+│   └── uploads/              # Temp storage for query images
 ├── docker/
-│   ├── Dockerfile
-│   └── init.sql
-│
+│   ├── Dockerfile            # DB Configuration
+│   └── init.sql              # SQL init script
 ├── src/
-│   ├── db_manager.py
-│   ├── eval_retrieval.py
-│   ├── eval_unseen_split.py
-│   ├── feature_extractor.py
-│   ├── frontend.py
-│   └── main.py
-│
-├── docker-compose.yml
-├── requirements.txt
-└── temp_query.jpg
+│   ├── db_manager.py         # Database connection & CRUD
+│   ├── eval_retrieval.py     # Evaluation metrics
+│   ├── eval_unseen_split.py  # Indexing & Data Splitting Script
+│   ├── feature_extractor.py  # ResNet50 logic
+│   ├── frontend.py           # Streamlit UI
+│   └── main.py               # Utilities
+├── docker-compose.yml        # Container orchestration
+├── requirements.txt          # Python dependencies
+└── temp_query.jpg            # Placeholder query image
+```
 
 
 How to run locally:
