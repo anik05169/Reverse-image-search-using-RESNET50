@@ -48,7 +48,9 @@ search_example = {
     ]
 }
 
-
+@app.get("/")
+def health():
+    return {"status": "ok"}
 
 @app.post(
     "/search",
@@ -90,4 +92,5 @@ async def search_image(file: UploadFile = File(...)):
 
 @app.get("/")
 def home():
+
     return {"status": "OK", "message": "Reverse Image Search API running"}
